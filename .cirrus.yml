@@ -1,0 +1,16 @@
+freebsd_instance:
+  image_family: freebsd-13-2
+
+task:
+  name: FreeBSD
+  env:
+    IGNORE_OSVERSION: yes
+  skip_notifications: true
+  prerequisites_script:
+    - pkg update -f
+    - pkg upgrade -y
+    - pkg install -y devel/git devel/pkgconf graphics/vips www/node20 www/npm
+  install_script:
+    - npm install --build-from-source --unsafe-perm
+  test_script:
+    - npm test
